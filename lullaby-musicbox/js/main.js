@@ -167,7 +167,7 @@ window.onload = function (event) {
         // Add surrounding
         const surroundingGeometry = new THREE.CubeGeometry(200,400,600);
         var loader = new THREE.TextureLoader();
-        loader.load('blatt.jpg', (texture) =>{
+        loader.load('img/blatt.jpg', (texture) =>{
             const surroundingMaterial = new THREE.MeshBasicMaterial({ 
                 map: texture, side: THREE.DoubleSide 
             });
