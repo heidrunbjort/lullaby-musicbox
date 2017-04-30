@@ -9,15 +9,25 @@ body {
 
 .controls {
 	position: absolute;
-	display: flex;
 	align-items: center;
 	width: 100%;
-	justify-content: center;
 	bottom: 0px;
 	margin-bottom: 50px;
 }
 
 .controls > div {
-	padding: 15px;
-	margin: 5px;
+	display: flex;
+	justify-content: center;
+}
+
+.sound-button {
+	display: inline-block;
+	/* min-height: 15px; */
+	padding: 7px;
+	margin: 5px 10px;
+	cursor: pointer;
+}
+
+.active {
+	color: #30486A;
 }
