@@ -59,8 +59,8 @@ window.onload = function (event) {
 
 
 
-  //       controls = new THREE.OrbitControls(camera, element);
-  //        controls.target.set(
+        // controls = new THREE.OrbitControls(camera, element);
+        //  controls.target.set(
         //     camera.position.x + 0.01,
         //     camera.position.y,
         //     camera.position.z
@@ -101,7 +101,7 @@ window.onload = function (event) {
 
             loader.load("obj/mnota5.json", (obj) =>{
                 obj.scale.set(3.5, 3.5, 3.5);
-                obj.position.set(30, -100, -150);
+                obj.position.set(15, -100, -150);
                 obj.rotation.x = 180 * (Math.PI / 180);
                 obj.rotation.y = 1.2 * (Math.PI / 180) * -1;
                  //obj.rotation.y = Math.PI * 1.97;
@@ -138,6 +138,7 @@ window.onload = function (event) {
                 cameraMoveInY();
                 cameraMoveInZ();
                 isFarNear = false;
+
             }
 
             else if(intersects.length > 0 && isFarNear == false){
@@ -151,10 +152,15 @@ window.onload = function (event) {
                 isFarNear = true;
             }
         }
-
-// function rotateCylender(){
-//          clickObjects[31].rotation.z =0.1;
-//      }
+window.lk  = function(){
+    rotateCylender();
+}
+function rotateCylender(){
+        requestAnimationFrame(rotateCylender);
+         // clickObjects[31].rotation.z += Math.PI / 180;
+         clickObjects[31].rotateOnAxis(new THREE.Vector3(0,0,0.05), Math.PI / 180 * 3);
+        }
+     
 
 
         // document.addEventListener("mousedown", function(e){
@@ -212,7 +218,6 @@ window.onload = function (event) {
     }
 
 
-
     // Render loop
     function render() {
 
@@ -225,7 +230,6 @@ window.onload = function (event) {
             //  intersects[ i ].object.material.color.set( 0xff0000 );
 
             // }
-
 
         requestAnimationFrame(render);
         renderer.render(scene, camera);
@@ -267,7 +271,7 @@ window.onload = function (event) {
             }
             
             // Increase modifier
-            y += 0.049;
+            y += 0.08;
 
             // Move camera a little bit
             camera.position.y = Math.sin(y) * delta;
@@ -294,7 +298,7 @@ window.onload = function (event) {
         const move = setInterval(() => {
             
             // Increase modifier
-            z += 0.032;
+            z += 0.036;
 
             // Move camera a little bit
             camera.position.z = Math.sin(z) * delta * -1;
@@ -324,7 +328,7 @@ window.onload = function (event) {
             }
             
             // Increase modifier
-            y += 0.059;
+            y += 0.08;
 
             // Move camera a little bit
             camera.position.y = Math.sin(y) * delta +15;
@@ -351,7 +355,7 @@ window.onload = function (event) {
         const move = setInterval(() => {
             
             // Increase modifier
-            z += 0.032;
+            z += 0.036;
 
             // Move camera a little bit
             camera.position.z = Math.sin(z) * delta - 150; 

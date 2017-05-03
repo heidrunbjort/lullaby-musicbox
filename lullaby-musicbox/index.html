@@ -7,7 +7,6 @@
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link href="https://fonts.googleapis.com/css?family=PT+Mono&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
 	<script src="js/three.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/16.3.5/Tween.min.js"></script>
 	<script src="libs/OrbitControls.js"></script>
     <script src="libs/StereoEffect.js"></script>
     <script src="libs/DeviceOrientationControls.js"></script>
@@ -40,8 +39,35 @@
 			<div id="æ" class="sound-button">Æ</div>
 		</div>
 	</div>
-	
+	<div class="form-container">
+	<form class="form" id="form" action="">
+ 		<select name="gender" class="field">
+ 			<option value="--">--</option>
+    		<option value="boy">boy</option>
+    		<option value="girl">girl</option>
+  		</select>
+  		<input type="date" name="when" id="when" min="2015-01-01" max="2017-12-01" class="field">
+  		<select name="sodiac" class="field">
+  			<option value="--">--</option>
+  			<option value="1">aquarius</option>
+  			<option value="2">pisces</option>
+  			<option value="3">aries</option>
+  			<option value="4">taurus</option>
+  			<option value="5">gemini</option>
+  			<option value="6">cancer</option>
+  			<option value="7">leo</option>
+  			<option value="8">virgo</option>
+  			<option value="9">libra</option>
+  			<option value="10">scorpio</option>
+  			<option value="11">sagittarius</option>
+  			<option value="12">capricorn</option>
+  		</select>
+  		<!-- <br><br> -->
+  		<input type="submit" class="field">
+	</form>
+	</div>
 	<script type="text/javascript" src="js/sound.js"></script>
+	<script type="text/javascript" src="js/sofduunga.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

@@ -31,3 +31,16 @@ body {
 .active {
 	color: #30486A;
 }
+
+.form-container{
+	display: flex;
+	position: absolute;
+	right: 5%;
+	top:50%;
+}
+.form{
+	display: flex;
+	flex-direction: column;
+	
+}
+

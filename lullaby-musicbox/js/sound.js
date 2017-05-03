@@ -119,7 +119,7 @@ const keys={a:65,b:66,c:67,d:68,e:69,f:70,g:71,h:72,i:73,j:74,k:75,l:76,m:77,
 			n:78,o:79,p:80,q:81,r:82,s:83,t:84,u:85,v:86,w:87,x:88,y:89,z:90};
 
 const keyMapReverse = {65:'a',66:'b',67:'c',68:'d',69:'e',70:'f',71:'g',72:'h',73:'i',74:'j',75:'k',76:'l',77:'m',
-					78:'n',79:'o',80:'p',81:'q',82:'r',83:'s',84:'t',85:'u',86:'v',87:'w',88:'x',89:'y',90:'z', 186:'æ'};
+					78:'n',79:'o',80:'p',81:'q',82:'r',83:'s',84:'t',85:'u',86:'v',87:'w',88:'x',89:'y',90:'z'};
 
 const chromatic = {'w':61,'e':62,'r':63,'t':64,'y':65,'u':66,'i':67,'o':68,'a':69,
 			 	   's':70,'d':71,'f':72,'g':73,'h':74,'j':75,'k':76,'l':77};
@@ -128,12 +128,16 @@ const keyMap = {}
 
 function playNote(key) {
 	const src = audioctx.createBufferSource();
-	audioctx.decodeAudioData(base64ToArrayBuffer(MIDI.Soundfont.music_box[key].split(',')[1]), buffer => {
-		src.buffer = buffer;
-		src.connect(audioctx.destination);
-		src.start();
-	});
+	if (key) {
+		audioctx.decodeAudioData(base64ToArrayBuffer(MIDI.Soundfont.music_box[key].split(',')[1]), buffer => {
+			src.buffer = buffer;
+			src.connect(audioctx.destination);
+			src.start();
+		});		
+	}
+	
 }
+
 
 document.addEventListener("keydown", function(event) {
   	console.log(event.which);
