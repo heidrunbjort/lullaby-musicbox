@@ -194,6 +194,29 @@ function rotateCylender(){
 //         cameraMoveOutY();
 //         cameraMoveOutZ();
 // }
+    window.cj = function(){
+        cylenderMoveUp();
+    }
+
+    function cylenderMoveUp(){
+        let y = 0;
+        let delta = 50;
+        let controlreached = false;
+        const move = setInterval(()=>{
+
+            if(controlreached && (clickObjects[31].position.y <=)){
+                clearInterval(move);
+            }
+
+            y += 0.08;
+            clickObjects[31].position.y = Math.sin(y) * delta;
+
+             if (clickObjects[31].position.y > 15) {
+                console.log('Y finished');
+                controlReached = true;
+            }
+        }100);
+    }
     function cameraMoveInY() {
         
         let y = 0;
