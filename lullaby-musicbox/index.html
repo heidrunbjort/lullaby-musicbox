@@ -4,67 +4,77 @@
 	<title>Lullaby Music box</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
-	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=PT+Mono&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<script src="js/three.min.js"></script>
 	<script src="libs/OrbitControls.js"></script>
     <script src="libs/StereoEffect.js"></script>
     <script src="libs/DeviceOrientationControls.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
-	        
-	
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>	
 </head>
 <body>
 	<div class="controls">
-		<div>
-			<div id="w" class="sound-button">W</div>
-			<div id="e" class="sound-button">E</div>
-			<div id="r" class="sound-button">R</div>
-			<div id="t" class="sound-button">T</div>
-			<div id="y" class="sound-button">Y</div>
-			<div id="u" class="sound-button">U</div>
-			<div id="i" class="sound-button">I</div>
-			<div id="o" class="sound-button">O</div>
+		<div class="letters">
+			<div>
+				<div id="w" class="sound-button">W</div>
+				<div id="e" class="sound-button">E</div>
+				<div id="r" class="sound-button">R</div>
+				<div id="t" class="sound-button">T</div>
+				<div id="y" class="sound-button">Y</div>
+				<div id="u" class="sound-button">U</div>
+				<div id="i" class="sound-button">I</div>
+				<div id="o" class="sound-button">O</div>
+			</div>
+			<div>
+				<div id="a" class="sound-button">A</div>
+				<div id="s" class="sound-button">S</div>
+				<div id="d" class="sound-button">D</div>
+				<div id="f" class="sound-button">F</div>
+				<div id="g" class="sound-button">G</div>
+				<div id="h" class="sound-button">H</div>
+				<div id="j" class="sound-button">J</div>
+				<div id="k" class="sound-button">K</div>
+				<div id="l" class="sound-button">L</div>
+				<div id="æ" class="sound-button">Æ</div>
+			</div>
 		</div>
 		<div>
-			<div id="a" class="sound-button">A</div>
-			<div id="s" class="sound-button">S</div>
-			<div id="d" class="sound-button">D</div>
-			<div id="f" class="sound-button">F</div>
-			<div id="g" class="sound-button">G</div>
-			<div id="h" class="sound-button">H</div>
-			<div id="j" class="sound-button">J</div>
-			<div id="k" class="sound-button">K</div>
-			<div id="l" class="sound-button">L</div>
-			<div id="æ" class="sound-button">Æ</div>
-		</div>
+			<i class="fa fa-play" aria-hidden="true"></i>
+			<i class="fa fa-pause" aria-hidden="true"></i>
+		</div>	
 	</div>
 	<div class="form-container">
-	<form class="form" id="form" action="">
- 		<select name="gender" class="field">
- 			<option value="--">--</option>
-    		<option value="boy">boy</option>
-    		<option value="girl">girl</option>
-  		</select>
-  		<input type="date" name="when" id="when" min="2015-01-01" max="2017-12-01" class="field">
-  		<select name="sodiac" class="field">
-  			<option value="--">--</option>
-  			<option value="1">aquarius</option>
-  			<option value="2">pisces</option>
-  			<option value="3">aries</option>
-  			<option value="4">taurus</option>
-  			<option value="5">gemini</option>
-  			<option value="6">cancer</option>
-  			<option value="7">leo</option>
-  			<option value="8">virgo</option>
-  			<option value="9">libra</option>
-  			<option value="10">scorpio</option>
-  			<option value="11">sagittarius</option>
-  			<option value="12">capricorn</option>
-  		</select>
-  		<!-- <br><br> -->
-  		<input type="submit" class="field">
-	</form>
+		<form class="form" id="form" action="">
+
+			<h2>Create a lullaby for your baby</h2>
+			<label>Gender</label>
+	 		<select name="gender" class="field">	
+	 			<option value="--">--</option>
+	    		<option value="boy">boy</option>
+	    		<option value="girl">girl</option>
+	  		</select>
+		  	<label>Day/Month/Year</label>
+		  	<input type="date" name="when" id="when" min="2015-01-01" max="2017-12-01" class="field unstyled">
+		  	<label>Zodiac Sign</label>
+	  		<select name="sodiac" class="field">
+	  			<option value="--">--</option>
+	  			<option value="1">aquarius</option>
+	  			<option value="2">pisces</option>
+	  			<option value="3">aries</option>
+	  			<option value="4">taurus</option>
+	  			<option value="5">gemini</option>
+	  			<option value="6">cancer</option>
+	  			<option value="7">leo</option>
+	  			<option value="8">virgo</option>
+	  			<option value="9">libra</option>
+	  			<option value="10">scorpio</option>
+	  			<option value="11">sagittarius</option>
+	  			<option value="12">capricorn</option>
+	  		</select>
+	  		<!-- <br><br> -->
+	  		<button type="submit" class="field">Generate</button>
+		</form>
 	</div>
 	<script type="text/javascript" src="js/sound.js"></script>
 	<script type="text/javascript" src="js/sofduunga.js"></script>
