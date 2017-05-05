@@ -34,26 +34,42 @@ window.onload = function (event) {
         camera.lookAt(new THREE.Vector3(0, -50, -150));
         scene.add(camera);
 
-        const light1 = new THREE.AmbientLight( 0x404040, 6 ); // soft white light
-        light1.position.set(0, 0, 0 );
-         scene.add( light1 );
+        // const light1 = new THREE.AmbientLight( 0x303030, 7 ); // soft white light
+        // light1.position.set(0, 0, 0 );
+        //  scene.add( light1 );
         // var light2 = new THREE.PointLight( 0xff0000, 1, 200 );
         // light2.position.set( 50, 50, 50 );
         // scene.add( light2 );
         
-        const spotLight = new THREE.SpotLight( 0xffffff, 0.2 );
-        spotLight.position.set( 10, -120, 70 );
+        // two spot lights to the left and right infront of the box
 
-        spotLight.castShadow = true;
+        const light = new THREE.SpotLight( 0xffffff, .7, 0, 0.12, 0.3, 1 )//, 1, 10)//, 1, 0.1, 2 );
+        light.position.set( 300, 1000, 900 );
 
-        spotLight.shadow.mapSize.width = 1024;
-        spotLight.shadow.mapSize.height = 1024;
+        light.castShadow = true;
 
-        spotLight.shadow.camera.near = 500;
-        spotLight.shadow.camera.far = 4000;
-        spotLight.shadow.camera.fov = 30;
+        light.shadow.mapSize.width = 1024;
+        light.shadow.mapSize.height = 1024;
 
-        scene.add( spotLight );
+        light.shadow.camera.near = 500;
+        light.shadow.camera.far = 4000;
+        light.shadow.camera.fov = 30;
+
+        scene.add( light );
+
+        const light2 = new THREE.SpotLight( 0xffffff, .7, 0, 0.12, 0.3, 1 )//, 1, 10)//, 1, 0.1, 2 );
+        light2.position.set( -300, 1000, 900 );
+
+        light2.castShadow = true;
+
+        light2.shadow.mapSize.width = 1024;
+        light.shadow.mapSize.height = 1024;
+
+        light2.shadow.camera.near = 500;
+        light2.shadow.camera.far = 4000;
+        light2.shadow.camera.fov = 30;
+
+        scene.add( light2 );
 
         // Allows navigating the scene via mouse
 
@@ -118,7 +134,6 @@ window.onload = function (event) {
             });
 
         let isFarNear = true;
-        
 
         raycaster = new THREE.Raycaster();
         mouse = new THREE.Vector2();
@@ -171,8 +186,10 @@ function rotateCylender(){
         // },false);
         
         // Add surrounding
+        // height, width, depth
         const surroundingGeometry = new THREE.CubeGeometry(200,400,600);
         var loader = new THREE.TextureLoader();
+        // loader.load('img/blatt.jpg', (texture) =>{
         loader.load('img/blatt.jpg', (texture) =>{
             const surroundingMaterial = new THREE.MeshBasicMaterial({ 
                 map: texture, side: THREE.DoubleSide 
