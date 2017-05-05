@@ -30,3 +30,5 @@ let lag=[];
 // 	playNote(stelpa[tone]);
 // 	tone++;
 // },150)
+
+// 

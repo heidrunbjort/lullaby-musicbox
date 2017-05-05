@@ -254,11 +254,11 @@ function rotateCylender(){
     // }
      function cylenderMoveDown(){
         let y = 0;
-        let delta = -10;
+        let delta = 12;
         let controlReached = false;
         const move = setInterval(()=>{
 
-            if(controlReached && (clickObjects[31].position.y <= 1)){
+            if(controlReached && (clickObjects[31].position.y <= 0)){
                 clearInterval(move);
             }
 
@@ -266,7 +266,7 @@ function rotateCylender(){
             clickObjects[31].position.y = Math.sin(y) * delta + -10;
             console.log(clickObjects[31].position.y);
 
-             if (clickObjects[31].position.y >1) {
+             if (clickObjects[31].position.y >1.9   ) {
                 console.log('Y finished');
                 controlReached = true;
             }
@@ -342,7 +342,6 @@ function rotateCylender(){
         
     }
 
-    //-----------------------------------------------------------------
 
      function cameraMoveOutY() {
         
