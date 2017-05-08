@@ -1,19 +1,38 @@
+:root {
+  --navy-blue: #30486A;
+}
+
 body {
 	font-family: 'PT Mono', monospace;
 	font-size: 38px;
 	color: #FFFFFF;
 	overflow: hidden;
 	position: relative;
-
 }
 
-.letters {
+.controls {
 	position: absolute;
+	display: flex;
+	flex-direction: row;
 	align-items: center;
+	justify-content: center;
 	width: 100%;
 	bottom: 0px;
 	margin-bottom: 50px;
 }
+
+#pause-play {
+	margin-left: 15px;
+	cursor: pointer;
+}
+
+/*#pause-play .fa-pause {
+	color: var(--navy-blue);
+}
+
+#pause-play.active .fa-play {
+	color: var(--navy-blue);
+}*/
 
 .letters > div {
 	display: flex;
