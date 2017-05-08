@@ -98,7 +98,23 @@ window.onload = function (event) {
                     clickObjects.push(children);
                     
                 })
-                console.log(clickObjects[31]);
+                clickObjects[31].geometry.center();
+                clickObjects[31].position.y = -5.5;
+                clickObjects[31].position.z = 4;
+                
+                clickObjects[54].geometry.center();
+                clickObjects[54].geometry.translate(0,2, 0);
+                // clickObjects[54].rotation.z = 1.2 * (Math.PI / 180) *-1 ;
+                // clickObjects[54].rotation.y = 1.8 * (Math.PI / 180) * -1;
+                clickObjects[54].position.x = 1;
+                clickObjects[54].position.y = -7;
+                clickObjects[54].position.z = 9;
+
+
+                // clickObjects[54].position.x = 1;
+                // clickObjects[54].position.y = -7;
+                // clickObjects[54].position.z = 9.4;
+                
             });
 
         let isFarNear = true;
@@ -145,17 +161,28 @@ window.onload = function (event) {
         // var rotation_matrix = new THREE.Matrix4()setRotationZ(.01);
 
 window.lk  = function(){
-    rotateCylender();
-}
-function rotateCylender(){
-        requestAnimationFrame(rotateCylender);
-        // clickObjects[31].matrix.multiplaySelf(rotation_matrix);
-        // clickObjects.rotation.setRotationFromMatrix(clickObjects[31].matrix)
-    
-         // clickObjects[31].rotation.z += Math.PI / 180;
-          clickObjects[31].rotateOnAxis(new THREE.Vector3(0,0,-1).normalize(), Math.PI / 180 * 3);
+            
+            rotateCylender();
         }
-     
+
+window.ur = function(){
+            rotateCrank();
+        }
+        function rotateCylender(){
+            requestAnimationFrame(rotateCylender);
+
+            // clickObjects[31].matrix.multiplaySelf(rotation_matrix);
+            // clickObjects.rotation.setRotationFromMatrix(clickObjects[31].matrix)
+
+              clickObjects[31].rotation.z += Math.PI / 180 * -1;
+            //clickObjects[31].rotateOnAxis(new THREE.Vector3(0,0,-1).normalize(), Math.PI / 180 * 3);
+       }
+
+       function rotateCrank(){
+        requestAnimationFrame(rotateCrank);
+
+            clickObjects[54].rotation.x += Math.PI/180;
+       }
 
 // , Math.PI / 180 * 3
         
@@ -223,12 +250,12 @@ function rotateCylender(){
     }
 
         function cylenderMoveUp(){
-        let y = 0;
-        let delta = -10;
+        let y = -5.5;
+        let delta = -20;
         let controlReached = false;
         const move = setInterval(()=>{
 
-            if(controlReached && (clickObjects[31].position.y >= -9)){
+            if(controlReached && (clickObjects[31].position.y >= -19.9)){
                 clearInterval(move);
             }
 
@@ -236,7 +263,7 @@ function rotateCylender(){
             clickObjects[31].position.y = Math.sin(y) * delta;
             console.log(clickObjects[31].position.y);
 
-             if (clickObjects[31].position.y < -9) {
+             if (clickObjects[31].position.y < -19.9) {
                 console.log('Y finished');
                 controlReached = true;
             }
