@@ -34,26 +34,42 @@ window.onload = function (event) {
         camera.lookAt(new THREE.Vector3(0, -50, -150));
         scene.add(camera);
 
-        const light1 = new THREE.AmbientLight( 0x404040, 6 ); // soft white light
-        light1.position.set(0, 0, 0 );
-         scene.add( light1 );
+        // const light1 = new THREE.AmbientLight( 0x303030, 7 ); // soft white light
+        // light1.position.set(0, 0, 0 );
+        //  scene.add( light1 );
         // var light2 = new THREE.PointLight( 0xff0000, 1, 200 );
         // light2.position.set( 50, 50, 50 );
         // scene.add( light2 );
         
-        const spotLight = new THREE.SpotLight( 0xffffff, 0.2 );
-        spotLight.position.set( 10, -120, 70 );
+        // two spot lights to the left and right infront of the box
 
-        spotLight.castShadow = true;
+        const light = new THREE.SpotLight( 0xffffff, .7, 0, 0.12, 0.3, 1 )//, 1, 10)//, 1, 0.1, 2 );
+        light.position.set( 300, 1000, 900 );
 
-        spotLight.shadow.mapSize.width = 1024;
-        spotLight.shadow.mapSize.height = 1024;
+        light.castShadow = true;
 
-        spotLight.shadow.camera.near = 500;
-        spotLight.shadow.camera.far = 4000;
-        spotLight.shadow.camera.fov = 30;
+        light.shadow.mapSize.width = 1024;
+        light.shadow.mapSize.height = 1024;
 
-        scene.add( spotLight );
+        light.shadow.camera.near = 500;
+        light.shadow.camera.far = 4000;
+        light.shadow.camera.fov = 30;
+
+        scene.add( light );
+
+        const light2 = new THREE.SpotLight( 0xffffff, .7, 0, 0.12, 0.3, 1 )//, 1, 10)//, 1, 0.1, 2 );
+        light2.position.set( -300, 1000, 900 );
+
+        light2.castShadow = true;
+
+        light2.shadow.mapSize.width = 1024;
+        light.shadow.mapSize.height = 1024;
+
+        light2.shadow.camera.near = 500;
+        light2.shadow.camera.far = 4000;
+        light2.shadow.camera.fov = 30;
+
+        scene.add( light2 );
 
         // Allows navigating the scene via mouse
 
@@ -75,21 +91,17 @@ window.onload = function (event) {
                 obj.position.set(15, -100, -150);
                 obj.rotation.x = 180 * (Math.PI / 180);
                 obj.rotation.y = 1.2 * (Math.PI / 180) * -1;
-                 //obj.rotation.y = Math.PI * 1.97;
-                //obj.rotation.z = Math.PI * 2.0;
                 scene.add(obj);
 
                 scene.traverse(function(children){
 
                     clickObjects.push(children);
-                    //console.log(clickObjects);
-                    console.log(clickObjects[31]);
+                    
                 })
-                
+                console.log(clickObjects[31]);
             });
 
         let isFarNear = true;
-        
 
         raycaster = new THREE.Raycaster();
         mouse = new THREE.Vector2();
@@ -122,24 +134,36 @@ window.onload = function (event) {
                 // }
                 isFarNear = true;
             }
+
+
         }
 
+        // clickObjects[31].add(new THREE.Axes());
+        // clickObjects[31].rotation.set(Math.PI/2, Math.PI/4, Math.PI/4);
+        // clickObjects[31].matrix.setRotationFromEuler(clickObjects[31].rotation);
+        // scene.add(new THRE.Axes);
+        // var rotation_matrix = new THREE.Matrix4()setRotationZ(.01);
 
 window.lk  = function(){
     rotateCylender();
 }
 function rotateCylender(){
         requestAnimationFrame(rotateCylender);
+        // clickObjects[31].matrix.multiplaySelf(rotation_matrix);
+        // clickObjects.rotation.setRotationFromMatrix(clickObjects[31].matrix)
+    
          // clickObjects[31].rotation.z += Math.PI / 180;
-         clickObjects[31].rotateOnAxis(new THREE.Vector3(0,0,0.05), Math.PI / 180 * 3);
+          clickObjects[31].rotateOnAxis(new THREE.Vector3(0,0,-1).normalize(), Math.PI / 180 * 3);
         }
      
 
-
+// , Math.PI / 180 * 3
         
         // Add surrounding
+        // height, width, depth
         const surroundingGeometry = new THREE.CubeGeometry(200,400,600);
         var loader = new THREE.TextureLoader();
+        // loader.load('img/blatt.jpg', (texture) =>{
         loader.load('img/blatt.jpg', (texture) =>{
             const surroundingMaterial = new THREE.MeshBasicMaterial({ 
                 map: texture, side: THREE.DoubleSide 
@@ -157,15 +181,12 @@ function rotateCylender(){
         
     }
 
-    document.addEventListener('keyboard', keyboard, false);
+    // let cylenderMesh = new THREE.MeshPhongMaterial();
+    
 
-    function keyboard(){
-        switch(event.keyCode){
-            case 0: 
-
-        }
-    }
-
+    // let pivot  = new THREE.Object3D();
+    // pivot.add(clickObjects[31]);
+    // scene.add(pivot);
 
     // Render loop
     function render() {
@@ -292,7 +313,9 @@ function rotateCylender(){
         let y = 0;
         let delta = 50;
         let controlReached = false;
-        const move = setInterval(() => {
+        let move;
+        clearInterval(move)
+        move = setInterval(() => {
             
             // Check if we need to stop the animation
             if ( controlReached && (camera.position.y <= 15) ) {
@@ -324,7 +347,9 @@ function rotateCylender(){
         let delta = 150;
         let controlReached = false;
         
-        const move = setInterval(() => {
+        let move;
+        clearInterval(move);
+        move = setInterval(() => {
             
             // Increase modifier
             z += 0.036;
@@ -348,7 +373,9 @@ function rotateCylender(){
         let y = 0;
         let delta = 15;
         let controlReached = false;
-        const move = setInterval(() =>{
+        let move;
+        clearInterval(move);
+        move = setInterval(() =>{
             
             // Check if we need to stop the animation
             if ( controlReached && (camera.position.y <= 1) ) {
@@ -380,7 +407,9 @@ function rotateCylender(){
         let delta = 150;
         let controlReached = false;
         
-        const move = setInterval(() => {
+        let move;
+        clearInterval(move);
+        move = setInterval(() => {
             
             // Increase modifier
             z += 0.036;

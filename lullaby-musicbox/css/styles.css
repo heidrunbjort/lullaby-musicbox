@@ -7,7 +7,7 @@ body {
 
 }
 
-.controls {
+.letters {
 	position: absolute;
 	align-items: center;
 	width: 100%;
@@ -15,7 +15,7 @@ body {
 	margin-bottom: 50px;
 }
 
-.controls > div {
+.letters > div {
 	display: flex;
 	justify-content: center;
 }
@@ -35,12 +35,64 @@ body {
 .form-container{
 	display: flex;
 	position: absolute;
-	right: 5%;
-	top:50%;
+	right: 4%;
+	top: 18%;
 }
 .form{
 	display: flex;
 	flex-direction: column;
+	width: 231px;
 	
+}
+
+.form label {
+	font-size: 20px;
+	font-weight: 100;
+	display: block;
+	margin-bottom: 10px;
+}
+
+.form h2 {
+	font-size: 23px;
+	font-weight: 100;
+	margin-bottom: 20px;
+	line-height: 30px;	
+}
+
+.form select, .form input {
+	margin-bottom: 15px;
+	max-width: 228px;
+	height: 33px;
+	background-color: white;
+	color: black;
+	border: none;
+	font-family: 'PT Mono', monospace;
+	border-radius: 0px;
+	font-weight: 100;
+	font-size: 15px;
+	padding-left: 5px;
+}
+
+.form button {
+	width: 120px;
+	height: 36px;
+	font-family: 'PT Mono', monospace;
+	color: white; 	
+	background-color: #30486A;
+	font-size: 20px;
+	font-weight: 100;
+	border: none;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.23);
+}
+
+select {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+}
+
+.unstyled::-webkit-inner-spin-button,
+.unstyled::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
 }
 
