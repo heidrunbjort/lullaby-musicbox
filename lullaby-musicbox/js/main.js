@@ -6,6 +6,7 @@ window.onload = function (event) {
     let element, container;
     let speed;
     let mouse, raycaster;
+    let isFarNear = true;
     const clickObjects = [];
 
     // A clock to keep track of time in a convenient way
@@ -90,7 +91,7 @@ window.onload = function (event) {
                 obj.scale.set(3.5, 3.5, 3.5);
                 obj.position.set(15, -100, -150);
                 obj.rotation.x = 180 * (Math.PI / 180);
-                obj.rotation.y = 1.2 * (Math.PI / 180) * -1;
+                obj.rotation.y = 0.2 * (Math.PI / 180) * -1;
                 scene.add(obj);
 
                 scene.traverse(function(children){
@@ -105,7 +106,7 @@ window.onload = function (event) {
                 clickObjects[54].geometry.center();
                 clickObjects[54].geometry.translate(0,2, 0);
                 // clickObjects[54].rotation.z = 1.2 * (Math.PI / 180) *-1 ;
-                // clickObjects[54].rotation.y = 1.8 * (Math.PI / 180) * -1;
+                clickObjects[54].rotation.y = 1.2 * (Math.PI / 180) * -1;
                 clickObjects[54].position.x = 1;
                 clickObjects[54].position.y = -7;
                 clickObjects[54].position.z = 9;
@@ -117,7 +118,6 @@ window.onload = function (event) {
                 
             });
 
-        let isFarNear = true;
 
         raycaster = new THREE.Raycaster();
         mouse = new THREE.Vector2();
@@ -154,12 +154,6 @@ window.onload = function (event) {
 
         }
 
-        // clickObjects[31].add(new THREE.Axes());
-        // clickObjects[31].rotation.set(Math.PI/2, Math.PI/4, Math.PI/4);
-        // clickObjects[31].matrix.setRotationFromEuler(clickObjects[31].rotation);
-        // scene.add(new THRE.Axes);
-        // var rotation_matrix = new THREE.Matrix4()setRotationZ(.01);
-
 window.lk  = function(){
             
             rotateCylender();
@@ -171,11 +165,7 @@ window.ur = function(){
         function rotateCylender(){
             requestAnimationFrame(rotateCylender);
 
-            // clickObjects[31].matrix.multiplaySelf(rotation_matrix);
-            // clickObjects.rotation.setRotationFromMatrix(clickObjects[31].matrix)
-
               clickObjects[31].rotation.z += Math.PI / 180 * -1;
-            //clickObjects[31].rotateOnAxis(new THREE.Vector3(0,0,-1).normalize(), Math.PI / 180 * 3);
        }
 
        function rotateCrank(){
@@ -184,7 +174,6 @@ window.ur = function(){
             clickObjects[54].rotation.x += Math.PI/180;
        }
 
-// , Math.PI / 180 * 3
         
         // Add surrounding
         // height, width, depth
@@ -208,13 +197,6 @@ window.ur = function(){
         
     }
 
-    // let cylenderMesh = new THREE.MeshPhongMaterial();
-    
-
-    // let pivot  = new THREE.Object3D();
-    // pivot.add(clickObjects[31]);
-    // scene.add(pivot);
-
     // Render loop
     function render() {
 
@@ -234,10 +216,10 @@ window.ur = function(){
         renderer.setSize(width, height);
     }
 
-//     window.cm = function() {
-//         cameraMoveInY();
-//         cameraMoveInZ();
-//     }
+    // window.cm = function() {
+    //     cameraMoveInY();
+    //     cameraMoveInZ();
+    // }
 //     window.cn = function(){
 //         cameraMoveOutY();
 //         cameraMoveOutZ();
@@ -452,5 +434,31 @@ window.ur = function(){
         }, 100);
         
     }
-    
+    // let menuState = false;
+    let menu = document.getElementById("open-menu");
+    // menu.addEventListener('click', onBurgerClick, false);
+
+    // function onBurgerClick(){
+    //     menu.
+    // }
+    let menuState = false;
+    function menuZoom(){
+        // menu.classList.toggle('menu-opened');
+        $('header').toggleClass('menu-opened');
+        if(isFarNear == true && menuState == false){
+            cameraMoveInZ();
+            cameraMoveInY();
+            isFarNear = false;
+            menuState = true;
+        }
+        else if(isFarNear == false && menuState == true ){
+            cameraMoveOutZ();
+            cameraMoveOutY();
+            isFarNear = true;
+            menuState = false
+        }
+
+    }
+    menu.addEventListener('click', menuZoom);
+
 }
