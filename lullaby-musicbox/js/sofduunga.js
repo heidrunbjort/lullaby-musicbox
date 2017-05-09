@@ -22,6 +22,16 @@
 // }, 150);
 
 
+
+let genderInput = document.getElementById("gender");
+let dateInput = document.getElementById("date");
+let zodiacInput = document.getElementById("zodiac");
+
+console.log(genderInput.value);
+if(genderInput === "boy"){
+	console.log(boy);
+}
+
 const boy = ['',  '', '', '', 'G6','', 'D6', '', 'G7',  '',  'G6', '', 'G6', '', 'D6', '', 'B6', '', 'D6', ''];
 
 
@@ -37,6 +47,9 @@ const aquarius = ['B6','', 'D6', '', 'Gb6', '', 'G6',  '', 'Bb6', '', 'D6', '', 
 const taurus = ['C6', '', 'F6', '', 'A6', '', 'F7', '', 'A6', '', 'F6', '', 'C6', '', 'F6', '' ];
 
 let spilalag = boy.concat(jan, year2015, taurus);
+
+
+
 let tone = 0;
 setInterval(()=>{
 	playNote(spilalag[tone]);

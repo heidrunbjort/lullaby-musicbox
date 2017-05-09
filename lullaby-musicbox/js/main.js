@@ -136,9 +136,14 @@ window.onload = function (event) {
 
             if(intersects.length > 0 && isFar == true){
                 //zoom in
-                cameraMoveInY();
-                cameraMoveInZ();
+                // cameraMoveInY();
+                // cameraMoveInZ();
+
+                menuZoom();
                 isFar = false;
+                console.log(menuState);
+                
+
 
 
             }
@@ -454,7 +459,13 @@ window.ur = function(){
     
     function menuZoom(){
         // menu.classList.toggle('menu-opened');
-        $('header').toggleClass('menu-opened');
+        // $('header').toggleClass('menu-opened');
+        if(!menuState){
+            $('header').removeClass('menu-opened');
+        }
+        else{
+            $('header').addClass('menu-opened');
+        }
         if(isFar == true && menuState == false){
             cameraMoveInZ();
             cameraMoveInY();
@@ -467,6 +478,7 @@ window.ur = function(){
             isFar = true;
             menuState = false
         }
+
 
     }
     menu.addEventListener('click', menuZoom);
