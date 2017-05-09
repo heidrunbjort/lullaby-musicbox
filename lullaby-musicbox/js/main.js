@@ -1,7 +1,6 @@
-let cameraMoveOutY;
-let cameraMoveOutZ;
-let cameraMoveInY;
-let cameraMoveInZ;
+let moveIn;
+let moveOut;
+let isZoomed = false;
 
 window.onload = function (event) {
     
@@ -106,7 +105,7 @@ window.onload = function (event) {
             }) 
         });
 
-        let isFarNear = true;
+        let isFar = true;
 
         raycaster = new THREE.Raycaster();
         mouse = new THREE.Vector2();
@@ -114,6 +113,7 @@ window.onload = function (event) {
         document.addEventListener('dblclick', onDocumentMouseDown, false);
 
         function onDocumentMouseDown(event) {
+            isZoomed = !isZoomed;
             event.preventDefault();
 
             mouse.x = (event.clientX / renderer.domElement.width) * 2 - 1;
@@ -122,20 +122,16 @@ window.onload = function (event) {
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(clickObjects);
 
-            if(intersects.length > 0 && isFarNear == true){
+            if(intersects.length > 0 && isFar == true){
                 cameraMoveInY();
                 cameraMoveInZ();
-                isFarNear = false;
+                isFar = false;
             }
 
-            else if(intersects.length > 0 && isFarNear == false){
+            else if(intersects.length > 0 && isFar == false){
                 cameraMoveOutY();
                 cameraMoveOutZ();
-
-                // if(intersects.lenght == clickObjects[31]){
-                //  console.log("cylender clicked");
-                // }
-                isFarNear = true;
+                isFar = true;
             }
         }
 
@@ -287,6 +283,18 @@ window.onload = function (event) {
             controlReached = true;
           }
         });
+    }
+
+    moveIn = () => {
+        isZoomed = true;
+        cameraMoveInY();
+        cameraMoveInY();
+    }
+
+    moveOut = () => {
+        isZoomed = false;
+        cameraMoveOutY();
+        cameraMoveOutZ();
     }
 
     cameraMoveInY = function cameraMoveInY() {

@@ -1,17 +1,25 @@
 
 const sofduUnga = ['D6','', '', '', 'D6',  '',  '', '', 'G6', '', '', '', 'G6', '', '', '', 'A6', '', '', '', 'G6', '', 'A6', '', 'Bb6', '', '', '', '', '', '', '', 'G6', '', '', '', 'Bb6', '', '', '', 'A6', '', '', '', 'G6', '', '', '', 'Gb6', '', '', '', '', '', '', '', 'D6', '', '', '', '', '', '', 'D6', '', '', '', 'D6', '', '', '', 'G6', '', '', '', 'G6', '', '', '', 'A6', '', '', '', 'G6', '', 'A6', '', 'Bb6', '', '', '', '', '', '', 'A6', '', '', '', 'C7', '', '', '', 'Bb6', '', '', '', 'A6', '', '', '', 'G6', '', '', '', 'A6', '', '', '', 'D6', '', '', '', ];
 
-function playLullaby(lag) {
-	let tone = 0;
-	const songPlayer = setInterval(() => {
-		if(lag[tone]===undefined) {
-			clearInterval(songPlayer);
-			return console.log('song ended');
+let playPosition = 0;
+let songPlayer;
+
+function playLullaby() {
+	songPlayer = setInterval(() => {
+		if(lullaby[playPosition]===undefined) {
+			playPosition = 0;
+			// clearInterval(songPlayer);
+			// return console.log('song ended');
 		}
-		playNote(lag[tone]);
-		tone++;
-	}, 185);
+		playNote(lullaby[playPosition]);
+		playPosition++;
+	}, tempo);
 }
+
+function pauseLullaby() {
+	clearInterval(songPlayer);
+}
+
 
 const element = document.querySelector('form');
 element.addEventListener('submit', event => {

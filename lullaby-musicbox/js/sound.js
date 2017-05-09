@@ -124,13 +124,11 @@ const keyMapReverse = {65:'a',66:'b',67:'c',68:'d',69:'e',70:'f',71:'g',72:'h',7
 const chromatic = {'w':'C6','e':'Db6','r':'D6','t':'Eb6','y':'E6','u':'F6','i':'Gb6','o':'G6',
 				   'a':'Ab6','s':'g','d':'Bb6','f':'B6','g':'C7','h':'Db7','j':'D7','k':'Eb7','l':'E7','æ':'F7'};
 
-const pianoLayout = 
-					{'w':'Db6','e':'Eb6','r':'Gb6','t':'Ab7','y':'Bb7','u':'Db7','i':'Eb7','o':'Gb7',
-				   	'a':'C6','s':'D6','d':'E6','f':'F6','g':'G7','h':'A7','j':'B7','k':'C7','l':'D7','æ':'E7'};
+const pianoLayout = { 'w':'Db6','e':'Eb6','r':'Gb6','t':'Ab7','y':'Bb7','u':'Db7','i':'Eb7','o':'Gb7',
+				   	  'a':'C6','s':'D6','d':'E6','f':'F6','g':'G7','h':'A7','j':'B7','k':'C7','l':'D7','æ':'E7'};
 
-const pianoLayout2 = 
-					{'w':'Db6','e':'Eb6','r':'Gb6','t':'Ab6','y':'Bb6','u':'Db7','i':'Eb7','o':'F7',
-				   	'a':'C6','s':'D6','d':'E6','f':'F6','g':'G6','h':'A6','j':'B6','k':'C7','l':'D7', 'æ': 'E7'};
+const pianoLayout2 = { 'w':'Db6','e':'Eb6','r':'Gb6','t':'Ab6','y':'Bb6','u':'Db7','i':'Eb7','o':'F7',
+				   	   'a':'C6','s':'D6','d':'E6','f':'F6','g':'G6','h':'A6','j':'B6','k':'C7','l':'D7', 'æ': 'E7'};
 
 // C6, Db6, D6,Eb6,E6,F6,Gb6,G6,Ab6,A6,Bb6,B6,C7,Db7,D7,Eb7,E7,F7,Gb7,G7,Ab7,A7,Bb7,B7
 const keyMap = {}
@@ -168,25 +166,48 @@ document.addEventListener("keyup", function(event) {
 
 document.getElementById('pause-play').addEventListener("click", function(event) {
 	if(this.className === 'fa fa-play') {
+		playLullaby();
+		// To Do: snúa sílender á playtakkanum
 		this.className = 'fa fa-pause';
 	} else {
+		pauseLullaby();
 		this.className = 'fa fa-play';
+	}
+});	
+
+document.getElementById('rec-stop').addEventListener("click", function(event) {
+	if(this.className === 'fa fa-circle') {
+		recordSong();
+		this.className = 'fa fa-circle red';
+	} else {
+		this.className = 'fa fa-circle';
+		stopSong();
 	}
 });
 
 const recordArray = [];
-const songLength = 200;
+const songLength = 100;
+const tempo = 150;
+let recorder;
+let lullaby;
+
 function recordSong() {
 	let position = 0;
-	const recorder = setInterval(() => {
+ 	recorder = setInterval(() => {
 		if(position > songLength) {
+			//Stoppa upptökuna eftir 100 takta
 			clearInterval(recorder);
 			console.log('record done');
+			lullaby = recordArray;
 			return;
 		}
-
 		recordArray[position] = currentNote;
 		currentNote = '';
 		position++;
-	},150);
+	},tempo);
+}
+
+function stopSong() {
+	lullaby = recordArray;
+	clearInterval(recorder);
 }
