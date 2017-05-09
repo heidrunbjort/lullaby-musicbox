@@ -10,7 +10,6 @@ window.onload = function (event) {
     let element, container;
     let speed;
     let mouse, raycaster;
-    let isFar = true;
     let menuState = false;
     const clickObjects = [];
 
@@ -154,24 +153,22 @@ window.onload = function (event) {
         }
 
         window.lk  = function(){
-            
             rotateCylender();
         }
 
         window.ur = function(){
             rotateCrank();
         }
+
         function rotateCylender(){
             requestAnimationFrame(rotateCylender);
+            clickObjects[31].rotation.z += Math.PI / 180 * -1;
+        }
 
-              clickObjects[31].rotation.z += Math.PI / 180 * -1;
-       }
-
-       function rotateCrank(){
-        requestAnimationFrame(rotateCrank);
-
+        function rotateCrank(){
+            requestAnimationFrame(rotateCrank);
             clickObjects[54].rotation.x += Math.PI/180;
-       }
+        }
 
         
         // Add surrounding
@@ -179,7 +176,7 @@ window.onload = function (event) {
         const surroundingGeometry = new THREE.CubeGeometry(200,400,600);
         var loader = new THREE.TextureLoader();
         // loader.load('img/blatt.jpg', (texture) =>{
-        loader.load('img/blatt.jpg', (texture) =>{
+        loader.load('img/bla.png', (texture) =>{
             const surroundingMaterial = new THREE.MeshBasicMaterial({ 
                 map: texture, side: THREE.DoubleSide 
             });
@@ -312,14 +309,12 @@ window.onload = function (event) {
         });
     }
 
-    moveIn = () => {
-        isZoomed = true;
+    moveIn = (move) => {
         cameraMoveInY();
-        cameraMoveInY();
+        cameraMoveInZ();
     }
 
     moveOut = () => {
-        isZoomed = false;
         cameraMoveOutY();
         cameraMoveOutZ();
     }
@@ -434,40 +429,6 @@ window.onload = function (event) {
                 clearInterval(move);
             }
             
-        }, 100);
-        
+        }, 100);   
     }
-    // let menuState = false;
-    let menu = document.getElementById("open-menu");
-    // menu.addEventListener('click', onBurgerClick, false);
-
-    // function onBurgerClick(){
-    //     menu.
-    // }
-    
-    function menuZoom(){
-        // menu.classList.toggle('menu-opened');
-        // $('header').toggleClass('menu-opened');
-        if(menuState){
-            $('header').removeClass('menu-opened');
-        }
-        else{
-            $('header').addClass('menu-opened');
-        }
-        if(isFar == true && menuState == false){
-            cameraMoveInZ();
-            cameraMoveInY();
-            isFar = false;
-            menuState = true;
-        }
-        else if(isFar == false && menuState == true ){
-            cameraMoveOutZ();
-            cameraMoveOutY();
-            isFar = true;
-            menuState = false
-        }
-
-
-    }
-    menu.addEventListener('click', menuZoom);
 }
