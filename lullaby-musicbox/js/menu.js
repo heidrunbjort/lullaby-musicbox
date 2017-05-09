@@ -1,18 +1,28 @@
 $(document).ready(() => {
 	let menuOpen = false;
-	$('.open-menu').click(() => {
-		$('body').toggleClass('menu-opened');
 
+	$('.open-menu').click(() => {
 		if(!menuOpen){
-			cameraMoveInY();
-	        cameraMoveInZ();
+			if(!isZoomed) {
+				$('body').toggleClass('menu-opened');
+				moveIn();
+	        }
+	        else {
+				$('body').toggleClass('menu-opened-zoomed');
+
+	        }
 	        menuOpen = true;
 		}
 		else{
-			cameraMoveOutY();
-			cameraMoveOutZ();
+			if(!isZoomed){
+				$('body').toggleClass('menu-opened');
+				moveOut();
+			} else{
+				$('body').toggleClass('menu-opened-zoomed');
+			}
 			menuOpen = false;
 		}
 		return false;
-	});
+	});	
+	//$('.open-menu-zoomed').click(handleMenuClick);
 });

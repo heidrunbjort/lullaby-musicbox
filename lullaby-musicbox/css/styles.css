@@ -41,6 +41,13 @@ nav#main-nav{
 
 	transition-delay: 3s;
 }
+
+.menu-opened-zoomed nav#main-nav{
+	opacity: 1;
+	z-index: 11;
+	transition-delay: 0s;
+}
+
 .open-menu{
 	position: fixed;
 	top: 3%;
@@ -50,6 +57,7 @@ nav#main-nav{
 	display: block;
 	text-decoration: none;
 	z-index: 12;
+	cursor: pointer;
 }
 .open-menu span{
 	display: block;
@@ -264,4 +272,12 @@ select {
 	margin: 0 auto;
 	background: linear-gradient(to bottom, rgba(49,72,106,0), rgba(49,72,106,1));
 
+}
+
+.fa.fa-circle {
+	cursor: pointer;
+}
+
+.fa.fa-circle.red {
+	color: #C74647;
 }

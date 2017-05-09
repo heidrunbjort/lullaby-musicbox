@@ -1,3 +1,7 @@
+let moveIn;
+let moveOut;
+let isZoomed = false;
+
 window.onload = function (event) {
     
     // Some variables we will be using later
@@ -6,7 +10,6 @@ window.onload = function (event) {
     let element, container;
     let speed;
     let mouse, raycaster;
-    let isFar = true;
     let menuState = false;
     const clickObjects = [];
 
@@ -119,13 +122,15 @@ window.onload = function (event) {
                 
             });
 
+        let isFar = true;
 
         raycaster = new THREE.Raycaster();
         mouse = new THREE.Vector2();
 
         document.addEventListener('dblclick', onDocumentMouseDown, false);
 
-        function onDocumentMouseDown(event){
+        function onDocumentMouseDown(event) {
+            isZoomed = !isZoomed;
             event.preventDefault();
 
             mouse.x = (event.clientX / renderer.domElement.width) * 2 - 1;
@@ -135,59 +140,35 @@ window.onload = function (event) {
             const intersects = raycaster.intersectObjects(clickObjects);
 
             if(intersects.length > 0 && isFar == true){
-                //zoom in
-                // cameraMoveInY();
-                // cameraMoveInZ();
-
-                menuZoom();
+                cameraMoveInY();
+                cameraMoveInZ();
                 isFar = false;
-                console.log(menuState);
-                
-
-
-
             }
 
             else if(intersects.length > 0 && isFar == false){
-                //zoom out
                 cameraMoveOutY();
                 cameraMoveOutZ();
-                
-                // console.log("ball", menuState);
-                // if(menuState){
-                //     menuZoom();
-                //         console.log("hall");
-                //     }
-                    menuZoom();
-                // if(intersects.lenght == clickObjects[31]){
-                //  console.log("cylender clicked");
-                // }
-
                 isFar = true;
             }
-
-
         }
 
-window.lk  = function(){
-            
+        window.lk  = function(){
             rotateCylender();
         }
 
-window.ur = function(){
+        window.ur = function(){
             rotateCrank();
         }
+
         function rotateCylender(){
             requestAnimationFrame(rotateCylender);
+            clickObjects[31].rotation.z += Math.PI / 180 * -1;
+        }
 
-              clickObjects[31].rotation.z += Math.PI / 180 * -1;
-       }
-
-       function rotateCrank(){
-        requestAnimationFrame(rotateCrank);
-
+        function rotateCrank(){
+            requestAnimationFrame(rotateCrank);
             clickObjects[54].rotation.x += Math.PI/180;
-       }
+        }
 
         
         // Add surrounding
@@ -195,7 +176,7 @@ window.ur = function(){
         const surroundingGeometry = new THREE.CubeGeometry(200,400,600);
         var loader = new THREE.TextureLoader();
         // loader.load('img/blatt.jpg', (texture) =>{
-        loader.load('img/blatt.jpg', (texture) =>{
+        loader.load('img/bla.png', (texture) =>{
             const surroundingMaterial = new THREE.MeshBasicMaterial({ 
                 map: texture, side: THREE.DoubleSide 
             });
@@ -214,14 +195,10 @@ window.ur = function(){
 
     // Render loop
     function render() {
-
         requestAnimationFrame(render);
         renderer.render(scene, camera);
-        // controls.update();
-
     }
     
-
     // Adjust sizes on window resize
     function handleResize() {
         const width = window.innerWidth;
@@ -246,7 +223,7 @@ window.ur = function(){
         cylenderMoveDown();
     }
 
-        function cylenderMoveUp(){
+    function cylenderMoveUp(){
         let y = -5.5;
         let delta = -20;
         let controlReached = false;
@@ -332,8 +309,17 @@ window.ur = function(){
         });
     }
 
-    function cameraMoveInY() {
-        
+    moveIn = (move) => {
+        cameraMoveInY();
+        cameraMoveInZ();
+    }
+
+    moveOut = () => {
+        cameraMoveOutY();
+        cameraMoveOutZ();
+    }
+
+    cameraMoveInY = function cameraMoveInY() {
         let y = 0;
         let delta = 50;
         let controlReached = false;
@@ -366,7 +352,6 @@ window.ur = function(){
     }
     
     function cameraMoveInZ() {
-        
         let z = 0;
         let delta = 150;
         let controlReached = false;
@@ -387,13 +372,11 @@ window.ur = function(){
                 clearInterval(move);
             }
             
-        }, 100);
-        
+        }, 100); 
     }
 
 
-     function cameraMoveOutY() {
-        
+    function cameraMoveOutY() {
         let y = 0;
         let delta = 15;
         let controlReached = false;
@@ -446,41 +429,6 @@ window.ur = function(){
                 clearInterval(move);
             }
             
-        }, 100);
-        
+        }, 100);   
     }
-    // let menuState = false;
-    let menu = document.getElementById("open-menu");
-    // menu.addEventListener('click', onBurgerClick, false);
-
-    // function onBurgerClick(){
-    //     menu.
-    // }
-    
-    function menuZoom(){
-        // menu.classList.toggle('menu-opened');
-        // $('header').toggleClass('menu-opened');
-        if(menuState){
-            $('header').removeClass('menu-opened');
-        }
-        else{
-            $('header').addClass('menu-opened');
-        }
-        if(isFar == true && menuState == false){
-            cameraMoveInZ();
-            cameraMoveInY();
-            isFar = false;
-            menuState = true;
-        }
-        else if(isFar == false && menuState == true ){
-            cameraMoveOutZ();
-            cameraMoveOutY();
-            isFar = true;
-            menuState = false
-        }
-
-
-    }
-    menu.addEventListener('click', menuZoom);
-
 }
