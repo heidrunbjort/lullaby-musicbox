@@ -167,10 +167,14 @@ document.addEventListener("keyup", function(event) {
 document.getElementById('pause-play').addEventListener("click", function(event) {
 	if(this.className === 'fa fa-play') {
 		playLullaby();
+		rotateCrank();
+		rotateCylender();
 		// To Do: snúa sílender á playtakkanum
 		this.className = 'fa fa-pause';
 	} else {
 		pauseLullaby();
+		stopCylender = true;
+		stopCrank = true;
 		this.className = 'fa fa-play';
 	}
 });	

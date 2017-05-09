@@ -1,6 +1,10 @@
 let moveIn;
 let moveOut;
+let rotateCylender;
+let rotateCrank;
 let isZoomed = false;
+let stopCylender = false;
+let stopCrank = false;
 
 window.onload = function (event) {
     
@@ -152,25 +156,32 @@ window.onload = function (event) {
             }
         }
 
-        window.lk  = function(){
+        /* window.lk  = function(){
             rotateCylender();
         }
 
         window.ur = function(){
             rotateCrank();
-        }
+        } */
 
-        function rotateCylender(){
-            requestAnimationFrame(rotateCylender);
+        rotateCylender = function rotateCylender() {
+            if(stopCylender) {
+                stopCylender = false;
+                return;
+            }
             clickObjects[31].rotation.z += Math.PI / 180 * -1;
+            requestAnimationFrame(rotateCylender);
         }
 
-        function rotateCrank(){
-            requestAnimationFrame(rotateCrank);
+        rotateCrank = function rotateCrank() {
+            if(stopCrank) {
+                stopCrank = false;
+                return;
+            }
             clickObjects[54].rotation.x += Math.PI/180;
+            requestAnimationFrame(rotateCrank);
         }
 
-        
         // Add surrounding
         // height, width, depth
         const surroundingGeometry = new THREE.CubeGeometry(200,400,600);
