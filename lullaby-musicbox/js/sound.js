@@ -128,6 +128,9 @@ const pianoLayout =
 					{'w':'Db6','e':'Eb6','r':'Gb6','t':'Ab7','y':'Bb7','u':'Db7','i':'Eb7','o':'Gb7',
 				   	'a':'C6','s':'D6','d':'E6','f':'F6','g':'G7','h':'A7','j':'B7','k':'C7','l':'D7','æ':'E7'};
 
+const pianoLayout2 = 
+					{'w':'Db6','e':'Eb6','r':'Gb6','t':'Ab6','y':'Bb6','u':'Db7','i':'Eb7','o':'F7',
+				   	'a':'C6','s':'D6','d':'E6','f':'F6','g':'G6','h':'A6','j':'B6','k':'C7','l':'D7', 'æ': 'E7'};
 
 // C6, Db6, D6,Eb6,E6,F6,Gb6,G6,Ab6,A6,Bb6,B6,C7,Db7,D7,Eb7,E7,F7,Gb7,G7,Ab7,A7,Bb7,B7
 const keyMap = {}
@@ -142,37 +145,48 @@ function playNote(key) {
 		});		
 	}	
 }
-function playNote2(key) {
-	const src = audioctx.createBufferSource();
-	if (key) {
-		audioctx.decodeAudioData(base64ToArrayBuffer(MIDI.Soundfont.music_box[key].split(',')[1]), buffer => {
-			src.buffer = buffer;
-			src.connect(audioctx.destination);
-			src.start();
-		});		
-	}	
-}
-
+let currentNote = '';
 
 document.addEventListener("keydown", function(event) {
-  	console.log(event.which);
-
+	// if notes in range 65 to 90 and the key 186
 	if(event.which >= 65 && event.which <= 90 || event.which === 186) {
 		const letter = keyMapReverse[event.which];
-		const note = pianoLayout[letter];
+		//const note = pianoLayout2[letter];
+		currentNote = pianoLayout2[letter];
 		$('#' + letter).addClass('active');
-		playNote(note);
+		playNote(currentNote);
 	}
-
-	// TODO add active class to div
 });
 
 document.addEventListener("keyup", function(event) {
+	// if notes in range 65 to 90 and the key 186
 	if(event.which >= 65 && event.which <= 90 || event.which === 186) {
-	  	console.log('up',event.which);
 	  	const letter = keyMapReverse[event.which];
 	  	$('#' + letter).removeClass('active');
 	}
-
-	// TODO remove active class from div
 });
+
+document.getElementById('pause-play').addEventListener("click", function(event) {
+	if(this.className === 'fa fa-play') {
+		this.className = 'fa fa-pause';
+	} else {
+		this.className = 'fa fa-play';
+	}
+});
+
+const recordArray = [];
+const songLength = 200;
+function recordSong() {
+	let position = 0;
+	const recorder = setInterval(() => {
+		if(position > songLength) {
+			clearInterval(recorder);
+			console.log('record done');
+			return;
+		}
+
+		recordArray[position] = currentNote;
+		currentNote = '';
+		position++;
+	},150);
+}

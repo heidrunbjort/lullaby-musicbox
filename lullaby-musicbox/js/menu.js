@@ -1,18 +1,18 @@
-$(document).ready(function(){
+$(document).ready(() => {
+	let menuOpen = false;
+	$('.open-menu').click(() => {
+		$('body').toggleClass('menu-opened');
 
-	$('.open-menu').click(function () {
-	console.log("halo")
-	$('body').toggleClass('menu-opened');
-		if("menu-opened"){
+		if(!menuOpen){
 			cameraMoveInY();
-            cameraMoveInZ();
+	        cameraMoveInZ();
+	        menuOpen = true;
 		}
 		else{
-			cameraMoveOutY()
+			cameraMoveOutY();
 			cameraMoveOutZ();
+			menuOpen = false;
 		}
 		return false;
-
 	});
-		
 });

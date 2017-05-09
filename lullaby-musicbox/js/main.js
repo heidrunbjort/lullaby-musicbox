@@ -460,7 +460,7 @@ window.ur = function(){
     function menuZoom(){
         // menu.classList.toggle('menu-opened');
         // $('header').toggleClass('menu-opened');
-        if(!menuState){
+        if(menuState){
             $('header').removeClass('menu-opened');
         }
         else{
