@@ -30,12 +30,15 @@ nav#main-nav{
 	opacity: 0;
 	transition: all 1.4s;
 
+
 }
 
 
 .menu-opened nav#main-nav{
 	opacity: 1;
 	z-index: 11;
+	/*display: block;*/
+
 	transition-delay: 3s;
 }
 

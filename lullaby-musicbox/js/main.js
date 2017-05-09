@@ -10,6 +10,8 @@ window.onload = function (event) {
     let element, container;
     let speed;
     let mouse, raycaster;
+    let isFar = true;
+    let menuState = false;
     const clickObjects = [];
 
     // A clock to keep track of time in a convenient way
@@ -75,7 +77,9 @@ window.onload = function (event) {
 
         scene.add( light2 );
 
-        // Allows navigating the scene via onDocumentMouseDown
+        // Allows navigating the scene via mouse
+
+
 
         // controls = new THREE.OrbitControls(camera, element);
         //  controls.target.set(
@@ -85,25 +89,39 @@ window.onload = function (event) {
             
         // );
 
-        //þetta virkar með fyrra boxinu
-        var loader = new THREE.ObjectLoader();
+            //þetta virkar með fyrra boxinu
+            var loader = new THREE.ObjectLoader();
 
-        loader.load("obj/mnota5.json", (obj) =>{
-            obj.scale.set(3.5, 3.5, 3.5);
-            obj.position.set(15, -100, -150);
-            obj.rotation.x = 180 * (Math.PI / 180);
-            obj.rotation.y = 1.2 * (Math.PI / 180) * -1;
-             //obj.rotation.y = Math.PI * 1.97;
-            //obj.rotation.z = Math.PI * 2.0;
-            scene.add(obj);
+            loader.load("obj/mnota5.json", (obj) =>{
+                obj.scale.set(3.5, 3.5, 3.5);
+                obj.position.set(15, -100, -150);
+                obj.rotation.x = 180 * (Math.PI / 180);
+                obj.rotation.y = 0.2 * (Math.PI / 180) * -1;
+                scene.add(obj);
 
-            scene.traverse(function(children){
+                scene.traverse(function(children){
 
-                clickObjects.push(children);
-                //console.log(clickObjects);
-                console.log(clickObjects[31]);
-            }) 
-        });
+                    clickObjects.push(children);
+                    
+                })
+                clickObjects[31].geometry.center();
+                clickObjects[31].position.y = -5.5;
+                clickObjects[31].position.z = 4;
+                
+                clickObjects[54].geometry.center();
+                clickObjects[54].geometry.translate(0,2, 0);
+                // clickObjects[54].rotation.z = 1.2 * (Math.PI / 180) *-1 ;
+                clickObjects[54].rotation.y = 1.2 * (Math.PI / 180) * -1;
+                clickObjects[54].position.x = 1;
+                clickObjects[54].position.y = -7;
+                clickObjects[54].position.z = 9;
+
+
+                // clickObjects[54].position.x = 1;
+                // clickObjects[54].position.y = -7;
+                // clickObjects[54].position.z = 9.4;
+                
+            });
 
         let isFar = true;
 
@@ -136,21 +154,32 @@ window.onload = function (event) {
         }
 
         window.lk  = function(){
+            
             rotateCylender();
         }
 
-        function rotateCylender() {
-            requestAnimationFrame(rotateCylender);
-             // clickObjects[31].rotation.z += Math.PI / 180;
-             clickObjects[31].rotateOnAxis(new THREE.Vector3(0,0,0.05), Math.PI / 180 * 3);
+        window.ur = function(){
+            rotateCrank();
         }
+        function rotateCylender(){
+            requestAnimationFrame(rotateCylender);
+
+              clickObjects[31].rotation.z += Math.PI / 180 * -1;
+       }
+
+       function rotateCrank(){
+        requestAnimationFrame(rotateCrank);
+
+            clickObjects[54].rotation.x += Math.PI/180;
+       }
+
         
         // Add surrounding
         // height, width, depth
         const surroundingGeometry = new THREE.CubeGeometry(200,400,600);
         var loader = new THREE.TextureLoader();
         // loader.load('img/blatt.jpg', (texture) =>{
-        loader.load('img/bla.png', (texture) => {
+        loader.load('img/blatt.jpg', (texture) =>{
             const surroundingMaterial = new THREE.MeshBasicMaterial({ 
                 map: texture, side: THREE.DoubleSide 
             });
@@ -171,7 +200,6 @@ window.onload = function (event) {
     function render() {
         requestAnimationFrame(render);
         renderer.render(scene, camera);
-        // controls.update();
     }
     
     // Adjust sizes on window resize
@@ -183,10 +211,10 @@ window.onload = function (event) {
         renderer.setSize(width, height);
     }
 
-//     window.cm = function() {
-//         cameraMoveInY();
-//         cameraMoveInZ();
-//     }
+    // window.cm = function() {
+    //     cameraMoveInY();
+    //     cameraMoveInZ();
+    // }
 //     window.cn = function(){
 //         cameraMoveOutY();
 //         cameraMoveOutZ();
@@ -199,12 +227,12 @@ window.onload = function (event) {
     }
 
     function cylenderMoveUp(){
-        let y = 0;
-        let delta = -10;
+        let y = -5.5;
+        let delta = -20;
         let controlReached = false;
         const move = setInterval(()=>{
 
-            if(controlReached && (clickObjects[31].position.y >= -9)){
+            if(controlReached && (clickObjects[31].position.y >= -19.9)){
                 clearInterval(move);
             }
 
@@ -212,7 +240,7 @@ window.onload = function (event) {
             clickObjects[31].position.y = Math.sin(y) * delta;
             console.log(clickObjects[31].position.y);
 
-             if (clickObjects[31].position.y < -9) {
+             if (clickObjects[31].position.y < -19.9) {
                 console.log('Y finished');
                 controlReached = true;
             }
@@ -249,13 +277,13 @@ window.onload = function (event) {
     //     }, 100);
         
     // }
-    function cylenderMoveDown(){
+     function cylenderMoveDown(){
         let y = 0;
-        let delta = -10;
+        let delta = 12;
         let controlReached = false;
         const move = setInterval(()=>{
 
-            if(controlReached && (clickObjects[31].position.y <= 1)){
+            if(controlReached && (clickObjects[31].position.y <= 0)){
                 clearInterval(move);
             }
 
@@ -263,14 +291,13 @@ window.onload = function (event) {
             clickObjects[31].position.y = Math.sin(y) * delta + -10;
             console.log(clickObjects[31].position.y);
 
-             if (clickObjects[31].position.y >1) {
+             if (clickObjects[31].position.y >1.9   ) {
                 console.log('Y finished');
                 controlReached = true;
             }
 
         },100);
     }
-
     function cylenderRotateLeft(){
         let controlReached = false
         const rotate = setInterval(()=>{
@@ -298,11 +325,12 @@ window.onload = function (event) {
     }
 
     cameraMoveInY = function cameraMoveInY() {
-        
         let y = 0;
         let delta = 50;
         let controlReached = false;
-        const move = setInterval(() => {
+        let move;
+        clearInterval(move)
+        move = setInterval(() => {
             
             // Check if we need to stop the animation
             if ( controlReached && (camera.position.y <= 15) ) {
@@ -328,13 +356,14 @@ window.onload = function (event) {
         
     }
     
-    cameraMoveInZ = function cameraMoveInZ() {
-        
+    function cameraMoveInZ() {
         let z = 0;
         let delta = 150;
         let controlReached = false;
         
-        const move = setInterval(() => {
+        let move;
+        clearInterval(move);
+        move = setInterval(() => {
             
             // Increase modifier
             z += 0.036;
@@ -348,20 +377,17 @@ window.onload = function (event) {
                 clearInterval(move);
             }
             
-        }, 100);
-        
+        }, 100); 
     }
 
-    //-----------------------------------------------------------------
 
-    
-
-    cameraMoveOutY = function cameraMoveOutY() {
-        
+    function cameraMoveOutY() {
         let y = 0;
         let delta = 15;
         let controlReached = false;
-        const move = setInterval(() =>{
+        let move;
+        clearInterval(move);
+        move = setInterval(() =>{
             
             // Check if we need to stop the animation
             if ( controlReached && (camera.position.y <= 1) ) {
@@ -387,13 +413,15 @@ window.onload = function (event) {
         
     }
     
-    cameraMoveOutZ = function cameraMoveOutZ() {
+    function cameraMoveOutZ() {
         
         let z = 0;
         let delta = 150;
         let controlReached = false;
         
-        const move = setInterval(() => {
+        let move;
+        clearInterval(move);
+        move = setInterval(() => {
             
             // Increase modifier
             z += 0.036;
@@ -406,6 +434,40 @@ window.onload = function (event) {
                 clearInterval(move);
             }
             
-        }, 100);   
-    } 
+        }, 100);
+        
+    }
+    // let menuState = false;
+    let menu = document.getElementById("open-menu");
+    // menu.addEventListener('click', onBurgerClick, false);
+
+    // function onBurgerClick(){
+    //     menu.
+    // }
+    
+    function menuZoom(){
+        // menu.classList.toggle('menu-opened');
+        // $('header').toggleClass('menu-opened');
+        if(menuState){
+            $('header').removeClass('menu-opened');
+        }
+        else{
+            $('header').addClass('menu-opened');
+        }
+        if(isFar == true && menuState == false){
+            cameraMoveInZ();
+            cameraMoveInY();
+            isFar = false;
+            menuState = true;
+        }
+        else if(isFar == false && menuState == true ){
+            cameraMoveOutZ();
+            cameraMoveOutY();
+            isFar = true;
+            menuState = false
+        }
+
+
+    }
+    menu.addEventListener('click', menuZoom);
 }
