@@ -1,3 +1,8 @@
+let cameraMoveOutY;
+let cameraMoveOutZ;
+let cameraMoveInY;
+let cameraMoveInZ;
+
 window.onload = function (event) {
     
     // Some variables we will be using later
@@ -71,9 +76,7 @@ window.onload = function (event) {
 
         scene.add( light2 );
 
-        // Allows navigating the scene via mouse
-
-
+        // Allows navigating the scene via onDocumentMouseDown
 
         // controls = new THREE.OrbitControls(camera, element);
         //  controls.target.set(
@@ -83,26 +86,25 @@ window.onload = function (event) {
             
         // );
 
-            //þetta virkar með fyrra boxinu
-            var loader = new THREE.ObjectLoader();
+        //þetta virkar með fyrra boxinu
+        var loader = new THREE.ObjectLoader();
 
-            loader.load("obj/mnota5.json", (obj) =>{
-                obj.scale.set(3.5, 3.5, 3.5);
-                obj.position.set(15, -100, -150);
-                obj.rotation.x = 180 * (Math.PI / 180);
-                obj.rotation.y = 1.2 * (Math.PI / 180) * -1;
-                 //obj.rotation.y = Math.PI * 1.97;
-                //obj.rotation.z = Math.PI * 2.0;
-                scene.add(obj);
+        loader.load("obj/mnota5.json", (obj) =>{
+            obj.scale.set(3.5, 3.5, 3.5);
+            obj.position.set(15, -100, -150);
+            obj.rotation.x = 180 * (Math.PI / 180);
+            obj.rotation.y = 1.2 * (Math.PI / 180) * -1;
+             //obj.rotation.y = Math.PI * 1.97;
+            //obj.rotation.z = Math.PI * 2.0;
+            scene.add(obj);
 
-                scene.traverse(function(children){
+            scene.traverse(function(children){
 
-                    clickObjects.push(children);
-                    //console.log(clickObjects);
-                    console.log(clickObjects[31]);
-                })
-                
-            });
+                clickObjects.push(children);
+                //console.log(clickObjects);
+                console.log(clickObjects[31]);
+            }) 
+        });
 
         let isFarNear = true;
 
@@ -111,7 +113,7 @@ window.onload = function (event) {
 
         document.addEventListener('dblclick', onDocumentMouseDown, false);
 
-        function onDocumentMouseDown(event){
+        function onDocumentMouseDown(event) {
             event.preventDefault();
 
             mouse.x = (event.clientX / renderer.domElement.width) * 2 - 1;
@@ -124,13 +126,11 @@ window.onload = function (event) {
                 cameraMoveInY();
                 cameraMoveInZ();
                 isFarNear = false;
-
             }
 
             else if(intersects.length > 0 && isFarNear == false){
                 cameraMoveOutY();
                 cameraMoveOutZ();
-                
 
                 // if(intersects.lenght == clickObjects[31]){
                 //  console.log("cylender clicked");
@@ -139,25 +139,22 @@ window.onload = function (event) {
             }
         }
 
-
-window.lk  = function(){
-    rotateCylender();
-}
-function rotateCylender(){
-        requestAnimationFrame(rotateCylender);
-         // clickObjects[31].rotation.z += Math.PI / 180;
-         clickObjects[31].rotateOnAxis(new THREE.Vector3(0,0,0.05), Math.PI / 180 * 3);
+        window.lk  = function(){
+            rotateCylender();
         }
-     
 
-
+        function rotateCylender() {
+            requestAnimationFrame(rotateCylender);
+             // clickObjects[31].rotation.z += Math.PI / 180;
+             clickObjects[31].rotateOnAxis(new THREE.Vector3(0,0,0.05), Math.PI / 180 * 3);
+        }
         
         // Add surrounding
         // height, width, depth
         const surroundingGeometry = new THREE.CubeGeometry(200,400,600);
         var loader = new THREE.TextureLoader();
         // loader.load('img/blatt.jpg', (texture) =>{
-        loader.load('img/bla.png', (texture) =>{
+        loader.load('img/bla.png', (texture) => {
             const surroundingMaterial = new THREE.MeshBasicMaterial({ 
                 map: texture, side: THREE.DoubleSide 
             });
@@ -174,26 +171,13 @@ function rotateCylender(){
         
     }
 
-    document.addEventListener('keyboard', keyboard, false);
-
-    function keyboard(){
-        switch(event.keyCode){
-            case 0: 
-
-        }
-    }
-
-
     // Render loop
     function render() {
-
         requestAnimationFrame(render);
         renderer.render(scene, camera);
         // controls.update();
-
     }
     
-
     // Adjust sizes on window resize
     function handleResize() {
         const width = window.innerWidth;
@@ -218,7 +202,7 @@ function rotateCylender(){
         cylenderMoveDown();
     }
 
-        function cylenderMoveUp(){
+    function cylenderMoveUp(){
         let y = 0;
         let delta = -10;
         let controlReached = false;
@@ -269,7 +253,7 @@ function rotateCylender(){
     //     }, 100);
         
     // }
-     function cylenderMoveDown(){
+    function cylenderMoveDown(){
         let y = 0;
         let delta = -10;
         let controlReached = false;
@@ -290,6 +274,7 @@ function rotateCylender(){
 
         },100);
     }
+
     function cylenderRotateLeft(){
         let controlReached = false
         const rotate = setInterval(()=>{
@@ -304,7 +289,7 @@ function rotateCylender(){
         });
     }
 
-    function cameraMoveInY() {
+    cameraMoveInY = function cameraMoveInY() {
         
         let y = 0;
         let delta = 50;
@@ -335,7 +320,7 @@ function rotateCylender(){
         
     }
     
-    function cameraMoveInZ() {
+    cameraMoveInZ = function cameraMoveInZ() {
         
         let z = 0;
         let delta = 150;
@@ -361,7 +346,9 @@ function rotateCylender(){
 
     //-----------------------------------------------------------------
 
-     function cameraMoveOutY() {
+    
+
+    cameraMoveOutY = function cameraMoveOutY() {
         
         let y = 0;
         let delta = 15;
@@ -392,7 +379,7 @@ function rotateCylender(){
         
     }
     
-    function cameraMoveOutZ() {
+    cameraMoveOutZ = function cameraMoveOutZ() {
         
         let z = 0;
         let delta = 150;
@@ -411,8 +398,6 @@ function rotateCylender(){
                 clearInterval(move);
             }
             
-        }, 100);
-        
-    }
-    
+        }, 100);   
+    } 
 }

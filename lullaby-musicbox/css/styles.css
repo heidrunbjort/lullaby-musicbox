@@ -9,6 +9,142 @@ body {
 	overflow: hidden;
 	position: relative;
 }
+h3{
+	font-size: 20px;
+	text-align: center;
+}
+/**/
+.container-nav{
+	width: 100%;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+nav#main-nav{
+	position: absolute;
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	float: none;
+	background-color: rgba(105, 105, 105, 0.5);
+	/*z-index: 9;*/
+	opacity: 0;
+	transition: all 1.4s;
+
+}
+
+
+.menu-opened nav#main-nav{
+	opacity: 1;
+	z-index: 11;
+	transition-delay: 3s;
+}
+.open-menu{
+	position: fixed;
+	top: 3%;
+	right: 3%;
+	width: 35px;
+	height: 35px;
+	display: block;
+	text-decoration: none;
+	z-index: 12;
+}
+.open-menu span{
+	display: block;
+	background-color: #f9f9f9;
+	height: 3px;
+	transition: all .3s;
+}
+.open-menu span + span{
+	margin-top:6px;
+}
+.menu-opened .open-menu span:nth-child(1){
+	transform:rotate(45deg);
+	margin: 9px 0 0; 
+}
+.menu-opened .open-menu span:nth-child(2){
+	opacity: 0;
+}
+.menu-opened .open-menu span:nth-child(3){
+	transform: rotate(-45deg);
+	margin:-12px 0 0;
+}
+.fader {
+	position: fixed;
+	top: 0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	z-index: 10;
+}
+.triangle1{
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 50px 0 50px 200px;
+	border-color: transparent transparent transparent #30486A;
+	transform: rotate(20deg);
+	position: absolute;
+	bottom: 15%;
+	left: 20%;
+}
+.triangle2{
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 50px 200px 50px 0;
+	border-color: transparent #30486A transparent transparent;
+	transform: rotate(-50deg);
+	position: absolute;
+	bottom: 20%;
+	right: 10%;
+}
+.triangle3{
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 50px 200px 50px 0;
+	border-color: transparent #30486A transparent transparent;
+	transform: rotate(-50deg);
+	position: absolute;
+	top: 10%;
+	right: 35%;
+}
+.circle{
+	width: 125px;
+	height: 125px;
+	background: #30486A;
+	border-radius: 50%;
+	position: absolute;
+	top: 40%;
+	left: 35%;
+}
+.texti h3{
+	font-size: 20px;
+	text-align: center;
+}
+.texti{
+	width: 150px;
+	position: absolute;
+}
+.texti1{
+	transform: rotate(-20deg);
+	top: -45px;
+	right:65px;
+}
+.texti2{
+	transform: rotate(50deg);
+	top: -20px;
+	left: 60px;
+}
+.texti3{
+	transform: rotate(50deg);
+	top: -45px;
+	left: 55px;
+}
+.texti4{
+	top: 20px;
+}
 
 .controls {
 	position: absolute;
@@ -126,5 +262,3 @@ select {
 	background: linear-gradient(to bottom, rgba(49,72,106,0), rgba(49,72,106,1));
 
 }
-
-
