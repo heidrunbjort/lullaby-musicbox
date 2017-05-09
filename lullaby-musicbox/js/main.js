@@ -6,7 +6,8 @@ window.onload = function (event) {
     let element, container;
     let speed;
     let mouse, raycaster;
-    let isFarNear = true;
+    let isFar = true;
+    let menuState = false;
     const clickObjects = [];
 
     // A clock to keep track of time in a convenient way
@@ -133,22 +134,31 @@ window.onload = function (event) {
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(clickObjects);
 
-            if(intersects.length > 0 && isFarNear == true){
+            if(intersects.length > 0 && isFar == true){
+                //zoom in
                 cameraMoveInY();
                 cameraMoveInZ();
-                isFarNear = false;
+                isFar = false;
+
 
             }
 
-            else if(intersects.length > 0 && isFarNear == false){
+            else if(intersects.length > 0 && isFar == false){
+                //zoom out
                 cameraMoveOutY();
                 cameraMoveOutZ();
                 
-
+                // console.log("ball", menuState);
+                // if(menuState){
+                //     menuZoom();
+                //         console.log("hall");
+                //     }
+                    menuZoom();
                 // if(intersects.lenght == clickObjects[31]){
                 //  console.log("cylender clicked");
                 // }
-                isFarNear = true;
+
+                isFar = true;
             }
 
 
@@ -441,20 +451,20 @@ window.ur = function(){
     // function onBurgerClick(){
     //     menu.
     // }
-    let menuState = false;
+    
     function menuZoom(){
         // menu.classList.toggle('menu-opened');
         $('header').toggleClass('menu-opened');
-        if(isFarNear == true && menuState == false){
+        if(isFar == true && menuState == false){
             cameraMoveInZ();
             cameraMoveInY();
-            isFarNear = false;
+            isFar = false;
             menuState = true;
         }
-        else if(isFarNear == false && menuState == true ){
+        else if(isFar == false && menuState == true ){
             cameraMoveOutZ();
             cameraMoveOutY();
-            isFarNear = true;
+            isFar = true;
             menuState = false
         }
 

@@ -10,10 +10,7 @@ h3{
 	font-size: 20px;
 	text-align: center;
 }
-/*.tri h3{
-	position: absolute;
-
-}*/
+/**/
 .container-nav{
 	width: 100%;
 	margin: 0 auto;
@@ -26,15 +23,16 @@ nav#main-nav{
 	top: 0;
 	float: none;
 	background-color: rgba(105, 105, 105, 0.5);
-	z-index: 9;
+	/*z-index: 9;*/
 	opacity: 0;
 	transition: all 1.4s;
-
+	transition-delay: 3s;
 }
 
 
 .menu-opened nav#main-nav{
 	opacity: 1;
+	z-index: 11;
 }
 .open-menu{
 	position: fixed;
@@ -44,7 +42,7 @@ nav#main-nav{
 	height: 35px;
 	display: block;
 	text-decoration: none;
-	z-index: 10;
+	z-index: 12;
 }
 .open-menu span{
 	display: block;
@@ -80,7 +78,7 @@ nav#main-nav{
 	height: 0;
 	border-style: solid;
 	border-width: 50px 0 50px 200px;
-	border-color: transparent transparent transparent #1c62ad;
+	border-color: transparent transparent transparent #30486A;
 	transform: rotate(20deg);
 	position: absolute;
 	bottom: 15%;
@@ -91,7 +89,7 @@ nav#main-nav{
 	height: 0;
 	border-style: solid;
 	border-width: 50px 200px 50px 0;
-	border-color: transparent #1c62ad transparent transparent;
+	border-color: transparent #30486A transparent transparent;
 	transform: rotate(-50deg);
 	position: absolute;
 	bottom: 20%;
@@ -102,7 +100,7 @@ nav#main-nav{
 	height: 0;
 	border-style: solid;
 	border-width: 50px 200px 50px 0;
-	border-color: transparent #1c62ad transparent transparent;
+	border-color: transparent #30486A transparent transparent;
 	transform: rotate(-50deg);
 	position: absolute;
 	top: 10%;
@@ -111,7 +109,7 @@ nav#main-nav{
 .circle{
 	width: 125px;
 	height: 125px;
-	background: #1c62ad;
+	background: #30486A;
 	border-radius: 50%;
 	position: absolute;
 	top: 40%;
