@@ -190,8 +190,8 @@ document.getElementById('rec-stop').addEventListener("click", function(event) {
 });
 
 const recordArray = [];
-const songLength = 100;
-const tempo = 150;
+const songLength = 200;
+const tempo = 75;
 let recorder;
 let lullaby;
 
@@ -199,7 +199,7 @@ function recordSong() {
 	let position = 0;
  	recorder = setInterval(() => {
 		if(position > songLength) {
-			//Stoppa upptökuna eftir 100 takta
+			//Stoppa upptökuna eftir 200 takta
 			clearInterval(recorder);
 			console.log('record done');
 			lullaby = recordArray;

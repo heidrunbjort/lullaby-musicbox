@@ -275,36 +275,7 @@ pasted__group2 group pasted__polyToSubd5
 
         },100);
     }
-    // function cameraMoveOutY() {
-        
-    //     let y = 0;
-    //     let delta = 15;
-    //     let controlReached = false;
-    //     const move = setInterval(() =>{
-            
-    //         // Check if we need to stop the animation
-    //         if ( controlReached && (camera.position.y <= 1) ) {
-    //             clearInterval(move);
-    //         }
-            
-    //         // Increase modifier
-    //         y += 0.08;
 
-    //         // Move camera a little bit
-    //         camera.position.y = Math.sin(y) * delta +15;
-    //         //vconsole.log(camera.position.y);
-            
-    //         if (camera.position.y > 1) {
-    //             //console.log('Y finished');
-    //             controlReached = true;
-    //         }
-
-    //         camera.lookAt(new THREE.Vector3(0, -50, -150));
-    //         camera.updateProjectionMatrix();
-
-    //     }, 100);
-        
-    // }
      function cylenderMoveDown(){
         let y = 0;
         let delta = 12;
@@ -326,6 +297,7 @@ pasted__group2 group pasted__polyToSubd5
 
         },100);
     }
+    
     function cylenderRotateLeft(){
         let controlReached = false
         const rotate = setInterval(()=>{
