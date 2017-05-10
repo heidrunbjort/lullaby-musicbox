@@ -1,7 +1,7 @@
 $(document).ready(() => {
 	let menuOpen = false;
 
-	$('.open-menu').click(() => {
+	instructionsMenuOpenClose = function instructionsMenuOpenClose() {
 		if(!menuOpen){
 			if(!isZoomed) {
 				$('body').toggleClass('menu-opened');
@@ -23,6 +23,7 @@ $(document).ready(() => {
 			menuOpen = false;
 		}
 		return false;
-	});	
-	//$('.open-menu-zoomed').click(handleMenuClick);
+	}
+
+	$('#open-menu').click(instructionsMenuOpenClose);
 });

@@ -24,8 +24,14 @@ setInterval(function(){
 
 
 
+
 // const boy = ['',  '', '', '', 'G6','', 'D6', '', 'G7',  '',  'G6', '', 'G6', '', 'D6', '', 'B6', '', 'D6', ''];
 // const stelpa = ['',  '', '', '', 'D6','', 'G6', '', 'A7',  '',  'G6', '', 'A6', '', 'G6', '', 'D6', '', 'G6', ''];
+
+const boy = ['',  '', '', '', 'G6','', 'D6', '', 'G7',  '',  'G6', '', 'G6', '', 'D6', '', 'B6', '', 'D6', ''];
+
+
+const jan = [ 'A6', '', 'Db6', '', 'E6', '', 'G6', '', 'E6', '', 'Db6', '', 'A6', '', 'Db6', ''];
 
 
 // const jan = [ 'A6', '', 'Db6', '', 'E6', '', 'G6', '', 'E6', '', 'Db6', '', 'A6', '', 'Db6', ''];
@@ -41,6 +47,15 @@ setInterval(function(){
 // const taurus = ['Bb6', '', 'Db6', '', 'Gb7', '', 'G6', '', 'Gb6', '', 'Db6', '', 'Bb6', '', 'Db6', '' ];
 
 // let lag = boy.concat(april, year2017, taurus);
+
+const feb = ['Bb6', '', 'Db6', '', 'Gb6', '', 'G6', '', 'Gb6','', 'Db6', '', 'Bb6', '', 'Db6', '']
+
+const year2015 = ['Eb6', '', 'G6', '', 'Bb6', '', 'Eb7', '', 'Bb6','', 'G6', '', 'Eb6', '', 'G6', ''];
+const year2016 = ['C6', '', 'E6', '', 'G6', '', 'C7', '', 'G6','', 'E6', '', 'C6', '', 'E6', ''];
+const year2017 = ['E6', '', 'Ab6', '', 'B6', '', 'E7', '', 'B6','', 'Ab6', '', 'E6', '', 'Ab6', ''];
+
+const aquarius = ['B6','', 'D6', '', 'Gb6', '', 'G6',  '', 'Bb6', '', 'D6', '', 'B6', '', 'D6', ''];
+const taurus = ['C6', '', 'F6', '', 'A6', '', 'F7', '', 'A6', '', 'F6', '', 'C6', '', 'F6', '' ];
 
 // let tone = 0;
 // setInterval(()=>{
@@ -74,30 +89,127 @@ let tone1 = 0;
 
 let playPosition = 0;
 let songPlayer;
+let songPlaying = false;
 
 function playLullaby() {
+	songPlaying = true;
 	songPlayer = setInterval(() => {
 		if(lullaby[playPosition]===undefined) {
 			playPosition = 0;
 			// clearInterval(songPlayer);
 			// return console.log('song ended');
 		}
-		playNote(lullaby[playPosition]);
+		midi.playNote(lullaby[playPosition]);
 		playPosition++;
 	}, tempo);
 }
 
 function pauseLullaby() {
+	songPlaying = false;
 	clearInterval(songPlayer);
 }
+
+let star;
+let moon;
+//function moonAndStart() {
+	/*var s = new XMLSerializer();
+	var str = s.serializeToString(document);*/
+fetch('img/stjerne.svg').then(response => {
+	return response.text();
+}).then(svg => {
+	star = svg;
+});
+
+fetch('img/tungl.svg').then(response => {
+	return response.text();
+}).then(svg => {
+	moon = svg;
+});
+
+function createStar(id, fromLeft, fromTop, width) {
+	const newStar = $.parseHTML(star.replace('id="replace"', `id="${id}"`));
+	$(newStar).attr('style', `left: ${fromLeft}; top: ${fromTop}`);
+	$(newStar).attr('width', width);
+
+	$('body').append(newStar);
+}
+
+function createStars() {
+
+	const stars = [ 
+		{
+			name:'star-1',
+			top: '-110px',
+			left: '10px',
+			width: '128'
+		},
+		{
+			name:'star-2',
+			top: '-50px',
+			left: '60px',
+			width: '128'
+		},
+		{
+			name:'star-3',
+			top: '0px',
+			left: '150px',
+			width: '128'
+		},
+		{
+			name:'star-4',
+			top: '-150px',
+			left: '205px',
+			width: '128'
+		},
+		{
+			name:'star-5',
+			top: '-50px',
+			left: '270px',
+			width: '128'
+		}];
+
+	stars.forEach(star => {
+		createStar(star.name, star.left, star.top, star.width);
+	});
+}
+
+
+// $('body').append(svg);
+//		moonAndStart();
+//    console.log( svg );
+//}
+
 
 
 const element = document.querySelector('form');
 element.addEventListener('submit', event => {
-  event.preventDefault();
-  // actual logic, e.g. validate the form
-  // playLullaby(sofduUnga);
-  console.log('generate song');3
+
+	event.preventDefault();
+	// actual logic, e.g. validate the form
+	loadBackground('img/space.jpg');
+	$('#lullaby-form').addClass('hidden');
+	$('#open-menu').addClass('close');
+	$('#rec-stop').addClass('hidden');
+
+	lullaby = boy.concat(jan, year2015, taurus);
+
+	playButtonAction();
+	createStars();
+
+  	$('#open-menu').off('click').on('click', () => {
+  		if(songPlaying) {
+  			playButtonAction();
+  			lullaby = [];
+  			playPosition = 0;
+  		}
+  		loadBackground('img/bla.png');
+  		$('#lullaby-form').removeClass('hidden');
+  		$('#rec-stop').removeClass('hidden');
+  		$('#open-menu').removeClass('close');
+  		$('#open-menu').off('click').on('click', instructionsMenuOpenClose);
+        return false;
+    }); 
+
 });
 
 
