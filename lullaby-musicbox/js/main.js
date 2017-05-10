@@ -15,6 +15,7 @@ window.onload = function (event) {
     let speed;
     let mouse, raycaster;
     let menuState = false;
+    const module = {};
     const clickObjects = [];
 
     // A clock to keep track of time in a convenient way
@@ -102,28 +103,31 @@ window.onload = function (event) {
                 obj.rotation.y = 0.2 * (Math.PI / 180) * -1;
                 scene.add(obj);
 
-                scene.traverse(function(children){
+                scene.traverse(function(child) {
+                    clickObjects.push(child);
+                    module[child.name] = child;
+                    // console.log(clickObjects);
+                });
 
-                    clickObjects.push(children);
-                    
-                })
-                clickObjects[31].geometry.center();
-                clickObjects[31].position.y = -5.5;
-                clickObjects[31].position.z = 4;
+                const CylObj = module['pasted__group2 group pasted__polySurface761'];
+                const CrankObj = module['pasted__group2 group pasted__polyToSubd5'];
+
+
+                CylObj.geometry.center();
+                CylObj.position.y = -5.5;
+                CylObj.position.z = 4;
                 
-                clickObjects[54].geometry.center();
-                clickObjects[54].geometry.translate(0,2, 0);
+                CrankObj.geometry.center();
+                CrankObj.geometry.translate(0,2, 0);
                 // clickObjects[54].rotation.z = 1.2 * (Math.PI / 180) *-1 ;
-                clickObjects[54].rotation.y = 1.2 * (Math.PI / 180) * -1;
-                clickObjects[54].position.x = 1;
-                clickObjects[54].position.y = -7;
-                clickObjects[54].position.z = 9;
-
+                CrankObj.rotation.y = 1.2 * (Math.PI / 180) * -1;
+                CrankObj.position.x = 1;
+                CrankObj.position.y = -7;
+                CrankObj.position.z = 9;
 
                 // clickObjects[54].position.x = 1;
                 // clickObjects[54].position.y = -7;
-                // clickObjects[54].position.z = 9.4;
-                
+                // clickObjects[54].position.z = 9.4; 
             });
 
         let isFar = true;
@@ -164,12 +168,26 @@ window.onload = function (event) {
             rotateCrank();
         } */
 
+
+/*
+31
+pasted__group2 group pasted__polySurface761
+"A1173239-A7D6-4B11-8191-5D819D0B01DA"
+
+54
+
+pasted__group2 group pasted__polyToSubd5
+"3B4A4CF9-A2EC-4181-B67D-FB6AC5FB68F7"
+*/
+
         rotateCylender = function rotateCylender() {
             if(stopCylender) {
                 stopCylender = false;
                 return;
             }
-            clickObjects[31].rotation.z += Math.PI / 180 * -1;
+            const obj = module['pasted__group2 group pasted__polySurface761'];
+            obj.rotation.z += Math.PI / 180 * -1;
+            //clickObjects[31].rotation.z += Math.PI / 180 * -1;
             requestAnimationFrame(rotateCylender);
         }
 
@@ -178,7 +196,9 @@ window.onload = function (event) {
                 stopCrank = false;
                 return;
             }
-            clickObjects[54].rotation.x += Math.PI/180;
+            const obj = module['pasted__group2 group pasted__polyToSubd5'];
+            obj.rotation.x += Math.PI/180;
+            // clickObjects[54].rotation.x += Math.PI/180;
             requestAnimationFrame(rotateCrank);
         }
 
