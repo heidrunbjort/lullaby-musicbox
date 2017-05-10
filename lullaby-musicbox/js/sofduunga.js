@@ -101,60 +101,36 @@ fetch('img/tungl.svg').then(response => {
 	moon = svg;
 });
 
-function createStar(id, fromLeft, fromTop, width) {
+function createStar(id) {
+
+	if(star === undefined) {
+		setTimeout(createStars(id), 150); 
+		return;
+	}
 	const newStar = $.parseHTML(star.replace('id="replace"', `id="${id}"`));
-	$(newStar).attr('style', `left: ${fromLeft}; top: ${fromTop}`);
-	$(newStar).attr('width', width);
 
 	$('body').append(newStar);
 }
 
 function createStars() {
 
-	const stars = [ 
-		{
-			name:'star-1',
-			top: '-110px',
-			left: '10px',
-			width: '128'
-		},
-		{
-			name:'star-2',
-			top: '-50px',
-			left: '60px',
-			width: '128'
-		},
-		{
-			name:'star-3',
-			top: '0px',
-			left: '150px',
-			width: '128'
-		},
-		{
-			name:'star-4',
-			top: '-150px',
-			left: '205px',
-			width: '128'
-		},
-		{
-			name:'star-5',
-			top: '-50px',
-			left: '270px',
-			width: '128'
-		}];
-
+	const stars = [ 'star-1', 'star-2', 'star-3', 'star-4', 'star-5', 
+					'star-6', 'star-7', 'star-8', 'star-9', 'star-10'];
 	stars.forEach(star => {
-		createStar(star.name, star.left, star.top, star.width);
+		createStar(star);
 	});
 }
 
+function createMoon() {
 
-// $('body').append(svg);
-//		moonAndStart();
-//    console.log( svg );
-//}
+	if(moon === undefined) {
+		setTimeout(createMoon(id), 150); 
+		return;
+	}
 
-
+	const newMoon = $.parseHTML(moon);
+	$('body').append(newMoon);
+}
 
 const element = document.querySelector('form');
 element.addEventListener('submit', event => {
@@ -169,6 +145,7 @@ element.addEventListener('submit', event => {
 
 	playButtonAction();
 	createStars();
+	createMoon();
 
   	$('#open-menu').off('click').on('click', () => {
   		if(songPlaying) {
@@ -176,6 +153,8 @@ element.addEventListener('submit', event => {
   			lullaby = [];
   			playPosition = 0;
   		}
+  		$( ".stjerne-skum" ).remove();
+  		$( ".moon" ).remove();
   		loadBackground('img/bla.png');
   		$('#lullaby-form').removeClass('hidden');
   		$('#rec-stop').removeClass('hidden');
