@@ -5,6 +5,8 @@ let rotateCrank;
 let isZoomed = false;
 let stopCylender = false;
 let stopCrank = false;
+let loadBackground;
+let instructionsMenuOpenClose;
 
 window.onload = function (event) {
     
@@ -207,15 +209,19 @@ pasted__group2 group pasted__polyToSubd5
         const surroundingGeometry = new THREE.CubeGeometry(200,400,600);
         var loader = new THREE.TextureLoader();
         // loader.load('img/blatt.jpg', (texture) =>{
-        loader.load('img/bla.png', (texture) =>{
-            const surroundingMaterial = new THREE.MeshBasicMaterial({ 
-                map: texture, side: THREE.DoubleSide 
+        /* background loadað inn */
+        loadBackground = function loadBackground(imgPath) {
+            loader.load(imgPath, (texture) =>{
+                const surroundingMaterial = new THREE.MeshBasicMaterial({ 
+                    map: texture, side: THREE.DoubleSide 
+                });
+                const surroundingBox = new THREE.Mesh( surroundingGeometry, surroundingMaterial );
+                surroundingBox.position.y = 100;
+                scene.add( surroundingBox );
             });
-            const surroundingBox = new THREE.Mesh( surroundingGeometry, surroundingMaterial );
-            surroundingBox.position.y = 100;
-            scene.add( surroundingBox );
-        });
-        
+        }
+        loadBackground('img/bla.png');
+        /* background loaded end */
         // Adjust everything in case there is a window resize
         window.addEventListener('resize', handleResize);
         

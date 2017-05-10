@@ -59,26 +59,41 @@ nav#main-nav{
 	z-index: 12;
 	cursor: pointer;
 }
+
 .open-menu span{
 	display: block;
 	background-color: #f9f9f9;
 	height: 3px;
 	transition: all .3s;
 }
+
 .open-menu span + span{
 	margin-top:6px;
 }
-.menu-opened .open-menu span:nth-child(1){
+
+.menu-opened .open-menu span:nth-child(1),
+.menu-opened-zoomed .open-menu span:nth-child(1),
+.close span:nth-child(1)
+{
 	transform:rotate(45deg);
 	margin: 9px 0 0; 
 }
-.menu-opened .open-menu span:nth-child(2){
+
+.menu-opened .open-menu span:nth-child(2),
+.menu-opened-zoomed .open-menu span:nth-child(2),
+.close span:nth-child(2)
+{
 	opacity: 0;
 }
-.menu-opened .open-menu span:nth-child(3){
+
+.menu-opened .open-menu span:nth-child(3),
+.menu-opened-zoomed .open-menu span:nth-child(3),
+.close span:nth-child(3)
+{
 	transform: rotate(-45deg);
 	margin:-12px 0 0;
 }
+
 .fader {
 	position: fixed;
 	top: 0;
@@ -88,6 +103,12 @@ nav#main-nav{
 	opacity: 0;
 	z-index: 10;
 }
+
+.hidden {
+    opacity: 0; 
+    transition: opacity 1s ease;
+}
+
 .triangle1{
 	width: 0;
 	height: 0;
@@ -280,4 +301,11 @@ select {
 
 .fa.fa-circle.red {
 	color: #C74647;
+}
+
+.stjerne-skum {
+	position: absolute;
+    z-index: 10;
+    top: 0px;
+    left: 0px;
 }
